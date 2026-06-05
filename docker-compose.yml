@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  servidor:
+    build: .
+    container_name: servidor_redes
+    volumes:
+      - .:/app
+    networks:
+      - rede_trabalho
+    cap_add:
+      - NET_ADMIN
+
+  cliente:
+    build: .
+    container_name: cliente_redes
+    volumes:
+      - .:/app
+    networks:
+      - rede_trabalho
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - servidor
+
+networks:
+  rede_trabalho:
+    driver: bridge
